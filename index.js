@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
+// ✅ Correct route path
 app.post('/send-notification', async (req, res) => {
   const { userId, message } = req.body;
 
@@ -16,7 +17,7 @@ app.post('/send-notification', async (req, res) => {
       headings: { en: 'New Message' }
     }, {
       headers: {
-        Authorization: 'os_v2_app_x6qr645mc5gdjil3gjmyqe6w6h5b2qwgkfzu3bf2u6y7jy5lbygf65w75gwhq4phiq7ygrpfzbtzmcrrlngkrbopxub52r746gks7fi',
+        Authorization: 'Basic os_v2_app_x6qr645mc5gdjil3gjmyqe6w6h5b2qwgkfzu3bf2u6y7jy5lbygf65w75gwhq4phiq7ygrpfzbtzmcrrlngkrbopxub52r746gks7fi',
         'Content-Type': 'application/json'
       }
     });
@@ -27,6 +28,12 @@ app.post('/send-notification', async (req, res) => {
   }
 });
 
+// ✅ Optional root route for testing
+app.get('/', (req, res) => {
+  res.send('Server is running');
+});
+
+// ✅ Required for Railway deployment
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server running on port 3000');
 });
